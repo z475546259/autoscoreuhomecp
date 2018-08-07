@@ -182,10 +182,6 @@ public class OneTLSPool2 {
             System.out.println(EntityUtils.toString(response.getEntity()));
             System.out.println("----------------------------------------");
 
-            // Once the request has been executed the local context can
-            // be used to examine updated state and various objects affected
-            // by the request execution.
-
             // Last executed request
             context.getRequest();
             // Execution route
@@ -251,16 +247,11 @@ public class OneTLSPool2 {
         CloseableHttpResponse response = httpclient.execute(httppost, context);
         Header[] headers = response.getAllHeaders();
         for (Header h : headers) {
-//            System.out.println(h.getName()+"<>"+h.getValue());
             if(h.getName().equalsIgnoreCase("set-cookie")){
                 String cutCookie =  h.getValue().substring(0,h.getValue().indexOf(";")+1);
-                System.out.println(cutCookie);
                 cookies.add(cutCookie);
             }
         }
-//        System.out.println("截取好的cookies====="+cookies.toString());
-//        CookieStore cookieStore = client.getCookieStore();
-//        client.setCookieStore(cookieStore);
 
         try {
             System.out.println("----------------------------------------");
@@ -268,11 +259,6 @@ public class OneTLSPool2 {
             result = EntityUtils.toString(response.getEntity());
             System.out.println(result);
             System.out.println("----------------------------------------");
-
-            // Once the request has been executed the local context can
-            // be used to examine updated state and various objects affected
-            // by the request execution.
-
             // Last executed request
             context.getRequest();
             // Execution route
@@ -328,53 +314,6 @@ public class OneTLSPool2 {
         String result =buffer.readLine();
         System.out.println("post JSON 返回结果=="+result);
         return result;
-
-
-
-
-//        System.out.println("executing request " + httppost.getURI());
-//        CloseableHttpResponse response = httpclient.execute(httppost, context);
-//        Header[] headers = response.getAllHeaders();
-//        for (Header h : headers) {
-////            System.out.println(h.getName()+"<>"+h.getValue());
-//            if(h.getName().equalsIgnoreCase("set-cookie")){
-//                String cutCookie =  h.getValue().substring(0,h.getValue().indexOf(";")+1);
-//                System.out.println(cutCookie);
-//                cookies.add(cutCookie);
-//            }
-//        }
-//        System.out.println("截取好的cookies====="+cookies.toString());
-////        CookieStore cookieStore = client.getCookieStore();
-////        client.setCookieStore(cookieStore);
-//
-//        try {
-//            System.out.println("----------------------------------------");
-//            System.out.println(response.getStatusLine());
-//            System.out.println(EntityUtils.toString(response.getEntity()));
-//            System.out.println("----------------------------------------");
-//
-//            // Once the request has been executed the local context can
-//            // be used to examine updated state and various objects affected
-//            // by the request execution.
-//
-//            // Last executed request
-//            context.getRequest();
-//            // Execution route
-//            context.getHttpRoute();
-//            // Target auth state
-//            context.getTargetAuthState();
-//            // Proxy auth state
-//            context.getTargetAuthState();
-//            // Cookie origin
-//            context.getCookieOrigin();
-//            // Cookie spec used
-//            context.getCookieSpec();
-//            // User security token
-//            context.getUserToken();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return EntityUtils.toString(response.getEntity());
     }
 
 
@@ -405,14 +344,12 @@ public class OneTLSPool2 {
         CloseableHttpResponse response = httpclient.execute(httpGet, context);
         Header[] headers = response.getAllHeaders();
         for (Header h : headers) {
-//            System.out.println(h.getName()+"<>"+h.getValue());
             if(h.getName().equalsIgnoreCase("set-cookie")){
                 String cutCookie =  h.getValue().substring(0,h.getValue().indexOf(";")+1);
                 System.out.println(cutCookie);
                 cookies.add(cutCookie);
             }
         }
-        System.out.println("截取好的cookies====="+cookies.toString());
 
         try {
             System.out.println("----------------------------------------");
