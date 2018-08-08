@@ -54,8 +54,138 @@ public class Uhomecp_flow {
 
         }
 
-        //每天参与话题
-        //5 获取话题列表
+
+
+        //8 领取参与主题积分
+        getScore(oneTLSPool2,"topic");
+
+        //12 领取评论文章积分
+        getScore(oneTLSPool2,"pgc");
+
+        //13 分享文章
+        getScore(oneTLSPool2,"share");
+
+        //14 点赞文章
+        for(int i=0;i<10;i++){
+            getScore(oneTLSPool2,"like");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //15 收藏文章
+        for(int i=0;i<10;i++) {
+            getScore(oneTLSPool2,"addToFavorites");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //16 回复评论
+        getScore(oneTLSPool2,"reply");
+
+        //17 开门
+        for(int i=0;i<3;i++) {
+            getScore(oneTLSPool2,"openDoor");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        //18 集市发帖
+        getScore(oneTLSPool2,"idle");
+        //19 购买商品
+        getScore(oneTLSPool2,"purchanceProduct");
+        //20 购买服务
+        getScore(oneTLSPool2,"saleService");
+        //21 认证
+        getScore(oneTLSPool2,"auth");
+        //22 完善资料
+        getScore(oneTLSPool2,"completeInformation");
+        //23 更新产品
+        for(int i=0;i<30;i++) {
+            getScore(oneTLSPool2,"updateProduct");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //24 帮帮发帖
+        getScore(oneTLSPool2,"postForHelp");
+        //25 拼车发帖
+        getScore(oneTLSPool2,"postForCarpooling");
+        //26 被点赞
+        for(int i=0;i<20;i++) {
+            getScore(oneTLSPool2,"beLike");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        //27 评论商家
+        getScore(oneTLSPool2,"commendSeller");
+        //28 评论服务
+        getScore(oneTLSPool2,"commentService");
+        //29 物业缴费
+        getScore(oneTLSPool2,"payManagementFee");
+        //30 维修报障
+        getScore(oneTLSPool2,"repair");
+        //31 问卷调查
+        getScore(oneTLSPool2,"questionNaire");
+        //32 访客放行
+        for(int i=0;i<3;i++) {
+            getScore(oneTLSPool2,"visitor");
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        // 最后一步 查看积分余额
+        url = "https://www.uhomecp.com/uhomecp-sso/v1/balalce/getBanalces.json";
+        String banalcesStr = oneTLSPool2.oneWayAuthorizationAcceptedGet(map,url);
+        JSONObject banalcesJson = JSONObject.parseObject(banalcesStr);
+        String balance = banalcesJson.getJSONArray("data").getJSONObject(0).getString("balance");
+        user.setEarn(Integer.parseInt(balance)-user.getScore());
+        user.setScore(Integer.parseInt(balance));
+        OperateOracle operateOracle = new OperateOracle();
+        operateOracle.updateUserData("寻常生活",user);
+    }
+
+    public static void main(String[] args) {
+        Uhomecp_flow uhomecp_flow = new Uhomecp_flow();
+
+        try {
+            uhomecp_flow.flow(new User());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void getScore(OneTLSPool2 oneTLSPool2,String type){
+        Map<String,String> map = new HashMap<>();
+        map.put("code", type);
+        String url = "https://www.uhomecp.com/integral-api/behavior/analyseBehavior";
+        try {
+            oneTLSPool2.oneWayAuthorizationAcceptedPost(map, url);
+        }catch (Exception e){
+            RecordToFile.record(new String[]{""},"errorlog.txt");
+        }
+    }
+
+}
+
+//每天参与话题
+//5 获取话题列表
 //        map.clear();
 //        url = "https://www.uhomecp.com/uhomecp-cbs-api/bbs/queryRecommend.json?pageLimit=100&pageNo=1";
 //        String topicsStr = oneTLSPool2.oneWayAuthorizationAcceptedGet(map,url);
@@ -97,9 +227,6 @@ public class Uhomecp_flow {
 //        map.put("communityName",communityName);
 //        url = "https://www.uhomecp.com/uhomecp-cbs/quiz/saveQuiz.json";
 //        String saveQuizResult = oneTLSPool2.oneWayAuthorizationAcceptedPost(map,url);
-
-        //8 领取参与主题积分
-        getScore(oneTLSPool2,"topic");
 
 //        //9 获取文章列表
 //        int[] quizTypeIds = {1011,10016,10012,10013,10014,10015,17,5,10,15,4,7,14};
@@ -144,79 +271,3 @@ public class Uhomecp_flow {
 //        map.put("userId",userId);
 //        url = "https://www.uhomecp.com/uhomecp-cbs/comment/save.json";
 //        oneTLSPool2.oneWayAuthorizationAcceptedPost(map,url);
-        //12 领取评论文章积分
-        getScore(oneTLSPool2,"pgc");
-
-        //13 分享文章
-        getScore(oneTLSPool2,"share");
-
-        //14 点赞文章
-        for(int i=0;i<10;i++){
-            getScore(oneTLSPool2,"like");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //15 收藏文章
-        for(int i=0;i<10;i++) {
-            getScore(oneTLSPool2,"addToFavorites");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //16 回复评论
-        getScore(oneTLSPool2,"reply");
-
-        //17 开门
-        for(int i=0;i<3;i++) {
-            getScore(oneTLSPool2,"openDoor");
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        //18 集市发帖
-        getScore(oneTLSPool2,"idle");
-
-
-        // 最后一步 查看积分余额
-        url = "https://www.uhomecp.com/uhomecp-sso/v1/balalce/getBanalces.json";
-        String banalcesStr = oneTLSPool2.oneWayAuthorizationAcceptedGet(map,url);
-        JSONObject banalcesJson = JSONObject.parseObject(banalcesStr);
-        String balance = banalcesJson.getJSONArray("data").getJSONObject(0).getString("balance");
-        user.setEarn(Integer.parseInt(balance)-user.getScore());
-        user.setScore(Integer.parseInt(balance));
-        OperateOracle operateOracle = new OperateOracle();
-        operateOracle.updateUserData("寻常生活",user);
-    }
-
-    public static void main(String[] args) {
-        Uhomecp_flow uhomecp_flow = new Uhomecp_flow();
-
-        try {
-            uhomecp_flow.flow(new User());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static void getScore(OneTLSPool2 oneTLSPool2,String type){
-        Map<String,String> map = new HashMap<>();
-        map.put("code", type);
-        String url = "https://www.uhomecp.com/integral-api/behavior/analyseBehavior";
-        try {
-            oneTLSPool2.oneWayAuthorizationAcceptedPost(map, url);
-        }catch (Exception e){
-            RecordToFile.record(new String[]{""},"errorlog.txt");
-        }
-    }
-
-}
