@@ -51,7 +51,7 @@ import java.util.*;
 public class OneTLSPool2 {
     public  CloseableHttpClient httpclient = null;
 //    public static final String KEY_STORE_TRUST_PATH = "D://https//ca//cl.jks"; // truststore的路径
-    public static final String KEY_STORE_TRUST_PATH = "F:\\API_test_project\\autoscore36kr\\src\\main\\resources\\keysotre.jks"; // truststore的路径
+    public static final String KEY_STORE_TRUST_PATH = "C:\\keystore\\keysotre.jks"; // truststore的路径
     public static final String KEY_STORE_TYPE_JKS = "jks"; // truststore的类型
 //    private static final String KEY_STORE_TRUST_PASSWORD = "123456"; // truststore的密码
     private static final String KEY_STORE_TRUST_PASSWORD = "changeit"; // truststore的密码
@@ -217,7 +217,8 @@ public class OneTLSPool2 {
         HttpPost httppost = new HttpPost(url);
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
-                .setConnectionRequestTimeout(5000).setProxy(new HttpHost("127.0.0.1", 8888))
+                .setConnectionRequestTimeout(5000)
+//                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httppost.setConfig(requestConfig);
         httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
@@ -290,7 +291,8 @@ public class OneTLSPool2 {
         HttpPost httppost = new HttpPost(url);
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
-                .setConnectionRequestTimeout(5000).setProxy(new HttpHost("127.0.0.1", 8888))
+                .setConnectionRequestTimeout(5000)
+//                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httppost.setConfig(requestConfig);
         httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
@@ -329,7 +331,8 @@ public class OneTLSPool2 {
         HttpGet httpGet = new HttpGet(url);
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
-                .setConnectionRequestTimeout(5000).setProxy(new HttpHost("127.0.0.1", 8888))
+                .setConnectionRequestTimeout(5000)
+//                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httpGet.setConfig(requestConfig);
         httpGet.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");

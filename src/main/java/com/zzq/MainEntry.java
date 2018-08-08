@@ -28,7 +28,7 @@ public class MainEntry extends Thread{
         Calendar c = Calendar.getInstance();
         Long beginLongTime = c.getTimeInMillis();
         String beginTime = sdf.format(c.getTime());
-        RecordToFile.record(new String[] {"菜鸟理财开始时间="+beginTime}, "countTime.txt");
+        RecordToFile.record(new String[] {"寻常生活开始时间="+beginTime}, "countTime.txt");
 
         Uhomecp_flow flow =  new Uhomecp_flow();
 //		List<cnUser> cnUsers = ListDom4J.turnDomtoCnUsers();
@@ -66,8 +66,8 @@ public class MainEntry extends Thread{
         Calendar c2 = Calendar.getInstance();
         Long endLongTime = c2.getTimeInMillis();
         String endTime = sdf.format(c2.getTime());
-        RecordToFile.record(new String[] {"菜鸟理财结束时间="+endTime}, "countTime.txt");
-        RecordToFile.record(new String[] {"----菜鸟理财本次用时="+(endLongTime-beginLongTime)/1000/60+"分钟"}, "countTime.txt");
+        RecordToFile.record(new String[] {"寻常生活结束时间="+endTime}, "countTime.txt");
+        RecordToFile.record(new String[] {"----寻常生活本次用时="+(endLongTime-beginLongTime)/1000/60+"分钟"}, "countTime.txt");
         System.out.println("~~~~主函数完了~~~");
         System.exit(0);
     }
