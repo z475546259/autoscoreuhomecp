@@ -55,7 +55,8 @@ public class OneTLSPool2 {
     public static final String KEY_STORE_TYPE_JKS = "jks"; // truststore的类型
 //    private static final String KEY_STORE_TRUST_PASSWORD = "123456"; // truststore的密码
     private static final String KEY_STORE_TRUST_PASSWORD = "changeit"; // truststore的密码
-    public  List<String> cookies = new ArrayList<>();
+//    public  List<String> cookies = new ArrayList<>();
+    public  Map<String,String> cookies = new HashMap<>();
     // 获得池化得HttpClient
 
     public OneTLSPool2() {
@@ -224,8 +225,9 @@ public class OneTLSPool2 {
         httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
 
         String strCookies = "";
-        for (String s:cookies) {
-            strCookies = strCookies+s;
+//        for (String s:cookies) {
+        for (String s:cookies.keySet()) {
+            strCookies = cookies.get(s)+s;
         }
         httppost.setHeader("Cookie",strCookies);
 
@@ -250,7 +252,8 @@ public class OneTLSPool2 {
         for (Header h : headers) {
             if(h.getName().equalsIgnoreCase("set-cookie")){
                 String cutCookie =  h.getValue().substring(0,h.getValue().indexOf(";")+1);
-                cookies.add(cutCookie);
+                cookies.put(h.getName(),cutCookie);
+//                cookies.add(cutCookie);
             }
         }
 
@@ -300,8 +303,8 @@ public class OneTLSPool2 {
         httppost.addHeader(HTTP.CONTENT_TYPE,  "text/json");
 
         String strCookies = "";
-        for (String s:cookies) {
-            strCookies = strCookies+s;
+        for (String s:cookies.keySet()) {
+            strCookies = cookies.get(s)+s;
         }
         httppost.setHeader("Cookie",strCookies);
 
@@ -338,8 +341,8 @@ public class OneTLSPool2 {
         httpGet.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
 
         String strCookies = "";
-        for (String s:cookies) {
-            strCookies = strCookies+s;
+        for (String s:cookies.keySet()) {
+            strCookies = cookies.get(s)+s;
         }
         httpGet.setHeader("Cookie",strCookies);
 
@@ -349,8 +352,7 @@ public class OneTLSPool2 {
         for (Header h : headers) {
             if(h.getName().equalsIgnoreCase("set-cookie")){
                 String cutCookie =  h.getValue().substring(0,h.getValue().indexOf(";")+1);
-                System.out.println(cutCookie);
-                cookies.add(cutCookie);
+                cookies.put(h.getName(),cutCookie);
             }
         }
 

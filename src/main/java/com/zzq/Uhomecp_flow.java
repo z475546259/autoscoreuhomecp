@@ -157,6 +157,7 @@ public class Uhomecp_flow {
         String balance = banalcesJson.getJSONArray("data").getJSONObject(0).getString("balance");
         user.setEarn(Integer.parseInt(balance)-user.getScore());
         user.setScore(Integer.parseInt(balance));
+        user.setUserId(userId);
         OperateOracle operateOracle = new OperateOracle();
         operateOracle.updateUserData("寻常生活",user);
     }

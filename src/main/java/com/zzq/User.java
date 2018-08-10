@@ -12,6 +12,7 @@ public class User {
     String userAgent;
     Integer score=0;
     Integer earn=0;
+    String  userId;
     public String getTel() {
         return tel;
     }
@@ -58,5 +59,13 @@ public class User {
 
     public void setEarn(Integer earn) {
         this.earn = earn;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

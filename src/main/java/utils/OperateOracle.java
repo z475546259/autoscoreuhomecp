@@ -39,7 +39,7 @@ public class OperateOracle {
             pstm.setString(2, user.getDeviceId());
             pstm.setString(3, user.getUserAgent());
             pstm.setInt(4, user.getEarn());
-            pstm.setString(5, "");
+            pstm.setString(5, user.getUserId());
             pstm.setString(6,"");
             pstm.setString(7, appName);
             pstm.setString(8, user.getTel());
