@@ -53,6 +53,22 @@ public class Uhomecp_flow {
         }catch (Exception e){
 
         }
+        //5 七天活动抽奖
+        map.clear();
+        try {
+            map.put("triggerEventId","235");
+            map.put("actId","322");
+            map.put("lotteryId","226");
+            map.put("userId",userId);
+            map.put("communityId","1");
+            map.put("provinceId","1");
+            map.put("cityId","2");
+            map.put("region","4");
+            url = "https://www.uhomecp.com/act-api/actvityBehavior/userLottery";
+            oneTLSPool2.oneWayAuthorizationAcceptedPostJson(map,url);
+        }catch (Exception e){
+
+        }
 
 
 
@@ -151,6 +167,7 @@ public class Uhomecp_flow {
         }
 
         // 最后一步 查看积分余额
+        map.clear();
         url = "https://www.uhomecp.com/uhomecp-sso/v1/balalce/getBanalces.json";
         String banalcesStr = oneTLSPool2.oneWayAuthorizationAcceptedGet(map,url);
         JSONObject banalcesJson = JSONObject.parseObject(banalcesStr);
