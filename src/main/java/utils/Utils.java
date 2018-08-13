@@ -1,9 +1,6 @@
 package utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Random;
 
 public class Utils {
@@ -32,6 +29,7 @@ public class Utils {
 				e.printStackTrace();
 			}
 		}
+		buffer.deleteCharAt(buffer.length()-1);
         return buffer.toString();
     }
     
@@ -84,6 +82,14 @@ public class Utils {
         return null;  
     }  
     public static void main(String[] args) {
+		try {
+			InputStream is = new FileInputStream("actId.txt");
+			System.out.println(Utils.getStringFromStream(is));
+			System.out.println("aaa");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
 		System.out.println( Utils.randomHexString(16));
 	}
     

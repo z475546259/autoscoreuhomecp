@@ -1,12 +1,14 @@
 package com.zzq;
 
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import tulingAPI.TuLing;
 import utils.OperateOracle;
 import utils.RecordToFile;
+import utils.Utils;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 
@@ -41,8 +43,12 @@ public class Uhomecp_flow {
         getScore(oneTLSPool2,"login");
         map.clear();
         //4 七天签到活动
+        //从文件中读取活动id
+        InputStream inputStream = new FileInputStream("actId.txt");
+        String actId = Utils.getStringFromStream(inputStream);
+        System.out.println("actId=="+actId);
         try {
-            map.put("actId","322");
+            map.put("actId",actId);
             map.put("userId",userId);
             map.put("communityId",communityId);
             map.put("provinceId",provinceId);
@@ -57,7 +63,7 @@ public class Uhomecp_flow {
         map.clear();
         try {
             map.put("triggerEventId","235");
-            map.put("actId","322");
+            map.put("actId",actId);
             map.put("lotteryId","226");
             map.put("userId",userId);
             map.put("communityId","1");
