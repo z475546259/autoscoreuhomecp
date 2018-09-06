@@ -13,6 +13,8 @@ import utils.RecordToFile;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * @author zhangzhiqiang
@@ -61,7 +63,13 @@ public class TuLing {
     }
 
     public static void main(String[] args) {
-        TuLing.getMessageByInput("对未来生活的所有向往");
+        Calendar calendar = Calendar.getInstance();
+        int xq = calendar.get(Calendar.DAY_OF_WEEK);
+        SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+        String dataStr =  sdf.format(calendar.getTime());
+        System.out.println(xq);
+        RecordToFile.record(new String[]{xq+" "+dataStr},"actId.txt",false);
+//        TuLing.getMessageByInput("对未来生活的所有向往");
     }
 
 }

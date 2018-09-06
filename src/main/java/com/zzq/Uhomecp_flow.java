@@ -1,5 +1,7 @@
 package com.zzq;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import utils.OperateOracle;
 import utils.RecordToFile;
@@ -9,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -43,9 +46,42 @@ public class Uhomecp_flow {
         getScore(oneTLSPool2,"login");
         map.clear();
         //4 七天签到活动
-        //从文件中读取活动id
+        String actId ="";
+        //先判断今天是不是星期一,是星期一就读取文件，看文件里面是否已经有更新过的actId，否则就，爬取actId放进去
+        Calendar calendar = Calendar.getInstance();
+        int xq = calendar.get(Calendar.DAY_OF_WEEK);
         InputStream inputStream = new FileInputStream("actId.txt");
-        String actId = Utils.getStringFromStream(inputStream);
+        String actIdandTime = Utils.getStringFromStream(inputStream);
+        if(xq==2){
+            String dateStr = actIdandTime.split(" ")[1];
+            SimpleDateFormat sdf = new SimpleDateFormat("YYYY-MM-dd");
+            String todayStr =  sdf.format(calendar.getTime());
+            if(todayStr.equalsIgnoreCase(dateStr)){
+                actId = actIdandTime.split(" ")[0];
+            }else {
+                //爬取今天星期一最新的actId
+                url = "https://www.uhomecp.com/uhomecp-sso/v1/msg/getMsgV3?cityId=2&provinceId=1";
+                String actJsonStr = oneTLSPool2.oneWayAuthorizationAcceptedGet(map,url);
+                JSONArray data = JSON.parseObject(actJsonStr).getJSONArray("data");
+                for (Object obj:data) {
+                    JSONObject json = (JSONObject) obj;
+                    if(json.getString("type").equals("50004")&&json.getString("createTime").split(" ")[0].equals(todayStr)){
+                            actId = json.getString("turnTip");
+                            RecordToFile.record(new String[]{actId+" "+todayStr},"actId.txt",false);
+                            break;
+                    }
+                }
+            }
+        }else{
+            actId = actIdandTime.split(" ")[0];
+        }
+
+
+
+
+        //从文件中读取活动id
+//        InputStream inputStream = new FileInputStream("actId.txt");
+//         Utils.getStringFromStream(inputStream);
         System.out.println("actId=="+actId);
         try {
             map.put("actId",actId);
@@ -187,9 +223,11 @@ public class Uhomecp_flow {
 
     public static void main(String[] args) {
         Uhomecp_flow uhomecp_flow = new Uhomecp_flow();
-
+        User user = new User();
+        user.setTel("15213114321");
+        user.setPassword("mazhaotong");
         try {
-            uhomecp_flow.flow(new User());
+            uhomecp_flow.flow(user);
         }catch (Exception e){
             e.printStackTrace();
         }

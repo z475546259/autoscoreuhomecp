@@ -219,10 +219,12 @@ public class OneTLSPool2 {
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
                 .setConnectionRequestTimeout(5000)
-//                .setProxy(new HttpHost("127.0.0.1", 8888))
+                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httppost.setConfig(requestConfig);
-        httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
+//        httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
+
+        httppost.setHeader("User-Agent","SEGExcellentHome/4.6.0 (iPhone; iOS 11.4.1; Scale/3.00)");
 
         String strCookies = "";
 //        for (String s:cookies) {
@@ -295,10 +297,12 @@ public class OneTLSPool2 {
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
                 .setConnectionRequestTimeout(5000)
-//                .setProxy(new HttpHost("127.0.0.1", 8888))
+                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httppost.setConfig(requestConfig);
-        httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
+//        httppost.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
+        httppost.setHeader("User-Agent","SEGExcellentHome/4.6.0 (iPhone; iOS 11.4.1; Scale/3.00)");
+
         httppost.addHeader(HTTP.CONTENT_TYPE,"application/json");
         httppost.addHeader(HTTP.CONTENT_TYPE,  "text/json");
 
@@ -335,10 +339,26 @@ public class OneTLSPool2 {
         // 设置请求的配置
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(5000).setConnectTimeout(5000)
                 .setConnectionRequestTimeout(5000)
-//                .setProxy(new HttpHost("127.0.0.1", 8888))
+                .setProxy(new HttpHost("127.0.0.1", 8888))
                 .setCookieSpec(CookieSpecs.STANDARD).build();
         httpGet.setConfig(requestConfig);
-        httpGet.setHeader("User-Agent","36kr-Android com.android36kr.app/7.5.1 (Android:6.0.1 Mobile:Redmi 4A) krchannel/xiaomi krversion7.5.1");
+        httpGet.setHeader("User-Agent","SEGExcellentHome/4.6.0 (iPhone; iOS 11.4.1; Scale/3.00)");
+        httpGet.setHeader("Accept","*/*");
+        httpGet.setHeader("Accept-Encoding","br, gzip, deflate");
+        httpGet.setHeader("Accept-Language","zh-Hans-HK;q=1");
+        httpGet.setHeader("Accept-Language","zh-Hans-HK;q=1");
+
+
+        httpGet.setHeader("communityId","1");
+        httpGet.setHeader("deviceId","2FBC9078-4DE7-4BEB-A202-B21162CC904E");
+        httpGet.setHeader("phoneModel","iPhone7(GSM)");
+        httpGet.setHeader("platform","SEGI");
+        httpGet.setHeader("source","2");
+        httpGet.setHeader("SYSCODE","10");
+        httpGet.setHeader("systemVersionCode","11.4.1");
+        httpGet.setHeader("version","4.6.0");
+        httpGet.setHeader("versionCode","50");
+
 
         String strCookies = "";
         for (String s:cookies.keySet()) {
